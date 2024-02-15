@@ -1,5 +1,10 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location_sample_app/location.dart';
+
+final locationRepositoryProvider = Provider<LocationRepository>((ref) {
+  return LocationRepositoryImpl();
+});
 
 abstract interface class LocationRepository {
   Future<void> permission();
@@ -19,7 +24,8 @@ class LocationRepositoryImpl implements LocationRepository {
 
   @override
   Future<void> permission() async {
-    if (!await Geolocator.isLocationServiceEnabled()) {
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
       throw const LocationServiceDisabledException();
     }
 
