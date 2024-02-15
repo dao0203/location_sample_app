@@ -19,7 +19,6 @@ class PermissionGate extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locationRepository = ref.watch(locationRepositoryProvider);
     return FutureBuilder(
         future: ref.watch(initializeProvider.future),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
