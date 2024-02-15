@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:location_sample_app/location_repository.dart';
 import 'package:location_sample_app/location_state.dart';
 
 class LocationScreen extends HookConsumerWidget {
@@ -16,7 +17,20 @@ class LocationScreen extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             location.when(
-              data: (data) => Text('Location: $data'),
+              data: (data) => Column(
+                children: [
+                  Text('Latitude: ${data.latitude}'),
+                  Text('Longitude: ${data.longitude}'),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await ref
+                          .watch(locationRepositoryProvider)
+                          .updateLocation(data);
+                    },
+                    child: Text('位置情報を送信する'),
+                  ),
+                ],
+              ),
               error: (error, stackTrace) => Text('Error: $error'),
               loading: () => const CircularProgressIndicator(),
             )

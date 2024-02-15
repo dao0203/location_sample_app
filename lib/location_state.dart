@@ -7,7 +7,7 @@ part 'location_state.g.dart';
 @riverpod
 class LocationState extends _$LocationState {
   @override
-  Future<Location> build() {
-    return ref.watch(locationRepositoryProvider).getLocation();
+  Stream<Location> build() {
+    return ref.watch(locationRepositoryProvider).watchLocation();
   }
 }
