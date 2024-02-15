@@ -27,7 +27,7 @@ class LocationScreen extends HookConsumerWidget {
                           .watch(locationRepositoryProvider)
                           .updateLocation(data);
                     },
-                    child: Text('位置情報を送信する'),
+                    child: const Text('位置情報を送信する'),
                   ),
                 ],
               ),
