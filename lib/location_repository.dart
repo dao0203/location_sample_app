@@ -1,6 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location_sample_app/location.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final locationRepositoryProvider = Provider<LocationRepository>((ref) {
   return LocationRepositoryImpl();
@@ -9,9 +10,11 @@ final locationRepositoryProvider = Provider<LocationRepository>((ref) {
 abstract interface class LocationRepository {
   Future<void> permission();
   Future<Location> getLocation();
+  Future<void> updateLocation(Location location);
 }
 
 class LocationRepositoryImpl implements LocationRepository {
+  final _client = Supabase.instance.client;
   @override
   Future<Location> getLocation() async {
     return Geolocator.getCurrentPosition().then((position) {
@@ -40,5 +43,13 @@ class LocationRepositoryImpl implements LocationRepository {
         LocationPermission.deniedForever) {
       return Future.error("Location permission denied forever");
     }
+  }
+
+  @override
+  Future<void> updateLocation(Location location) async {
+    _client.from('locations').upsert({
+      'latitude': location.latitude,
+      'longitude': location.longitude,
+    }).eq('id', 'b8a58138-0728-4bab-b7e9-109a6df0af79');
   }
 }
