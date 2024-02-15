@@ -13,6 +13,7 @@ dependencies:
   hooks_riverpod: ^2.4.10
   supabase_flutter: ^2.3.3
   flutter_dotenv: ^5.1.0
+  geolocator: ^10.1.1
 
 dev_dependencies:
   flutter_test:
