@@ -11,11 +11,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.4.10
+  supabase_flutter: ^2.3.3
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+assets:
+  - .env
 
 flutter:
   uses-material-design: true
